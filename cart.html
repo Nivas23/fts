@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="cart" style="position: relative; top: 50px"></div>
+    <script>
+      let carttable = function () {
+        function createElementFromHTML(htmlString) {
+          var div = document.createElement("div");
+          div.innerHTML = htmlString.trim();
+          return div.firstChild;
+        }
+        let grandSum = 0;
+        let cartitems = `<table class="table table-dark .thead-light">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>`;
+        Object.keys(localStorage).map((key) => {
+          if (!key.includes("price")) {
+            cartitems += `
+            <tr>
+              <td>${key}</td>
+              <td>${localStorage.getItem(key)}</td>
+              <td>${
+                localStorage.getItem("price:" + key) * localStorage.getItem(key)
+              }</td>
+            </tr>`;
+            grandSum +=
+              localStorage.getItem("price:" + key) * localStorage.getItem(key);
+          }
+        });
+        cartitems += `<tr>
+          <th></th>
+          <th>Total:</th>
+          <th>${grandSum}</th>
+        </tr></table>`;
+
+        document
+          .getElementById("cart")
+          .appendChild(createElementFromHTML(cartitems));
+      };
+      carttable();
+    </script>
+  </body>
+</html>
