@@ -2,5 +2,13 @@
 {
   display: flex;
   justify-content: space-between;
-
+  margin: auto;
 }
+#cart {
+  width: max-content;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10%;
+}
+
